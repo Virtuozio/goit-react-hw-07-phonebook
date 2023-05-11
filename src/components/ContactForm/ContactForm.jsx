@@ -1,9 +1,6 @@
-// import PropTypes from 'prop-types';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
-
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
@@ -16,7 +13,12 @@ export const ContactForm = () => {
       alert(`${form.elements.name.value} is already in contacts.`);
       return;
     }
-    dispatch(addContact(form.elements.name.value, form.elements.number.value));
+    dispatch(
+      addContact({
+        name: form.elements.name.value,
+        number: form.elements.number.value,
+      })
+    );
     form.reset();
   };
   return (
@@ -55,10 +57,3 @@ export const ContactForm = () => {
     </>
   );
 };
-
-// ContactForm.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   number: PropTypes.string.isRequired,
-//   onChange: PropTypes.func.isRequired,
-//   onAddContact: PropTypes.func.isRequired,
-// };
